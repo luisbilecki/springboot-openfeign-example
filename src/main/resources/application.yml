@@ -1,0 +1,9 @@
+rickAndMorty:
+  url: 'https://rickandmortyapi.com/api'
+
+feign:
+  client:
+    config:
+      rickAndMortyClient:
+        connectTimeout: 5000
+        readTimeout: 5000
