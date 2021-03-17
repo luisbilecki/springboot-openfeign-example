@@ -3,6 +3,7 @@ package com.luisbilecki.openfeignexample.service;
 import com.luisbilecki.openfeignexample.clients.RickAndMortyClient;
 import com.luisbilecki.openfeignexample.dto.CharacterDTO;
 import com.luisbilecki.openfeignexample.dto.CharactersDTO;
+import com.luisbilecki.openfeignexample.exception.IntegrationException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CharacterServiceImpl implements CharacterService {
             return response;
         } catch (FeignException ex) {
             log.error("CharacterServiceImpl.getCharacters - error - {}", ex.getMessage(), ex);
-            return new CharactersDTO();
+            throw new IntegrationException(ex);
         }
     }
 
@@ -39,7 +40,7 @@ public class CharacterServiceImpl implements CharacterService {
             return response;
         } catch (FeignException ex) {
             log.error("CharacterServiceImpl.getCharacter - error - id: {}, message: {}", id, ex.getMessage(), ex);
-            return new CharacterDTO();
+            throw new IntegrationException(ex);
         }
     }
 
